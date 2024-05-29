@@ -1,4 +1,5 @@
-let number = 1;
+
+
 function addNewSmartPhone() {
     //lấy dữ liệu từ form html
     let producer = $('#producer').val();
@@ -20,9 +21,14 @@ function addNewSmartPhone() {
         //tên API
         url: "http://localhost:8080/api/smartphones",
         //xử lý khi thành công
-        success: successHandler(number)
+        success: function () {
+            alert("Add new phone success")
+            successHandler(0)
+        }
 
-    });
+
+
+});
     //chặn sự kiện mặc định của thẻ
     event.preventDefault();
 }
@@ -45,12 +51,19 @@ function successHandler(number) {
             }
             content += "</table>"
             content += "<br> "
-            if(!data.content.last){
-                number += 1;
-                content += '<button onclick="successHandler(' + number + ')">Next</button>'
-            document.getElementById('smartphoneList').innerHTML = content;
 
+            if (data.pageable.pageNumber > 0 ) {
+                number = data.pageable.pageNumber -1
+                content += '<button onclick="successHandler(' + number + ')">Previous</button>'
+                document.getElementById('smartphoneList').innerHTML = content;
             }
+
+            if (data.pageable.pageNumber <= data.totalPages -1) {
+                number = data.pageable.pageNumber +1
+                content += '<button onclick="successHandler(' + number + ')">Next</button>'
+                document.getElementById('smartphoneList').innerHTML = content;
+            }
+
 
         }
     });
@@ -74,7 +87,10 @@ function deleteSmartphone(id) {
         type: "DELETE",
         //tên API
         url: `http://localhost:8080/api/smartphones/${id}`,
-        success: successHandler,
+        success:function (){
+            alert("product has been removed")
+        successHandler(0)
+        }
     });
     event.preventDefault();
 
