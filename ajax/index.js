@@ -1,3 +1,4 @@
+let number = 1;
 function addNewSmartPhone() {
     //lấy dữ liệu từ form html
     let producer = $('#producer').val();
@@ -19,38 +20,41 @@ function addNewSmartPhone() {
         //tên API
         url: "http://localhost:8080/api/smartphones",
         //xử lý khi thành công
-        success: successHandler
+        success: successHandler(number)
 
     });
     //chặn sự kiện mặc định của thẻ
     event.preventDefault();
 }
 
-function successHandler() {
+function successHandler(number) {
     $.ajax({
         type: "GET",
-        //tên API
-        url: "http://localhost:8080/api/smartphones",
-        //xử lý khi thành công
+        url: "http://localhost:8080/api/smartphones?page=" + number,
         success: function (data) {
             // hiển thị danh sách ở đây
-            let content = '    <table id="display-list"  border="1"><tr>\n' +
+            let content = '<table id="display-list"  border="1"><tr>\n' +
                 '        <th>Producer</td>\n' +
                 '        <th>Model</td>\n' +
                 '        <th>Price</td>\n' +
                 '        <th>Delete</td>\n' +
                 '    </tr>';
-            for (let i = 0; i < data.length; i++) {
-                content += getSmartphone(data[i]);
+            console.log(typeof data.content.length)
+            for (let i = 0; i < data.content.length; i++) {
+                content += getSmartphone(data.content[i]);
             }
             content += "</table>"
+            content += "<br> "
+            if(!data.content.last){
+                number += 1;
+                content += '<button onclick="successHandler(' + number + ')">Next</button>'
             document.getElementById('smartphoneList').innerHTML = content;
-            document.getElementById('smartphoneList').style.display = "block";
-            document.getElementById('add-smartphone').style.display = "block";
-            document.getElementById('display-create').style.display = "block";
-            document.getElementById('title').style.display = "block";
+
+            }
+
         }
     });
+    event.preventDefault();
 }
 
 function displayFormCreate() {
@@ -70,7 +74,8 @@ function deleteSmartphone(id) {
         type: "DELETE",
         //tên API
         url: `http://localhost:8080/api/smartphones/${id}`,
-        //xử lý khi thành công
-        success: successHandler
+        success: successHandler,
     });
+    event.preventDefault();
+
 }

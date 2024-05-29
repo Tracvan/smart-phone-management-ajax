@@ -10,35 +10,36 @@
 </head>
 <body>
 <h1>List smartphone</h1>
+<div class="container">
 
-<form id="add-smartphone">
-    <h1>Form create</h1>
-    <table>
-        <tr>
-            <td><label for="producer">Producer:</label></td>
-            <td><input type="text" id="producer" placeholder="producer"></td>
-        </tr>
-        <tr>
-            <td><label for="model">Model:</label></td>
-            <td><input type="text" id="model" placeholder="model"></td>
-        </tr>
-        <tr>
-            <td><label for="price">Price:</label></td>
-            <td><input type="text" id="price" placeholder="price"></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td><input type="submit" value="Add" onclick="addNewSmartPhone()"></td>
-        </tr>
-    </table>
-    <div id="smartphoneList"></div>
+    <form id="add-smartphone">
+        <h1>Form create</h1>
+        <table>
+            <tr>
+                <td><label for="producer">Producer:</label></td>
+                <td><input type="text" id="producer" placeholder="producer"></td>
+            </tr>
+            <tr>
+                <td><label for="model">Model:</label></td>
+                <td><input type="text" id="model" placeholder="model"></td>
+            </tr>
+            <tr>
+                <td><label for="price">Price:</label></td>
+                <td><input type="text" id="price" placeholder="price"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="submit" value="Create" onclick="addNewSmartPhone()"></td>
+            </tr>
+        </table>
+        <div id="smartphoneList"></div>
 
-</form>
-<div id="div-btn">
-    <button onclick="successHandler()" id="display">Display list smartphone</button>
-    <button onclick="displayFormCreate()" id="display-create">Create new smartphone</button>
+    </form>
+    <div id="div-btn">
+        <button onclick="successHandler(0)" id="display">Display list smartphone</button>
+        <button onclick="displayFormCreate()" id="display-create">Create new smartphone</button>
+    </div>
 </div>
-
 
 </body>
 </html>

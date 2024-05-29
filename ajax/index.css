@@ -1,7 +1,10 @@
 #display-create {
     float: left;
 }
+body{
+    background-color: lightblue;
 
+}
 #display-list {
     width: 600px;
     margin: auto;
@@ -38,6 +41,14 @@ h1 {
 }
 
 #add-smartphone {
-    width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
     margin: auto;
+}
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
 }

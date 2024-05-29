@@ -3,6 +3,9 @@ package com.codegym.webserviceajax.service;
 import com.codegym.webserviceajax.model.Smartphone;
 import com.codegym.webserviceajax.repository.ISmartphoneRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -11,9 +14,10 @@ import java.util.Optional;
 public class SmartphoneService implements ISmartphoneService {
     @Autowired
     ISmartphoneRepository smartphoneRepository;
+
     @Override
-    public Iterable<Smartphone> findAll() {
-        return smartphoneRepository.findAll();
+    public Page<Smartphone> findAll(@PageableDefault(size = 5) Pageable pageable) {
+        return smartphoneRepository.findAll(pageable);
     }
 
     @Override

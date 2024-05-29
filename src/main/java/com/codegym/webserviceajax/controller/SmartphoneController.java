@@ -3,6 +3,8 @@ package com.codegym.webserviceajax.controller;
 import com.codegym.webserviceajax.model.Smartphone;
 import com.codegym.webserviceajax.service.SmartphoneService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -24,8 +26,8 @@ public class SmartphoneController {
     @Autowired
     SmartphoneService smartphoneService;
     @GetMapping
-    public ResponseEntity<Iterable<Smartphone>> listSmartphones() {
-        return new ResponseEntity<>(smartphoneService.findAll(), HttpStatus.OK);
+    public ResponseEntity<Iterable<Smartphone>> listSmartphones(@PageableDefault(size = 5) Pageable pageable) {
+        return new ResponseEntity<>(smartphoneService.findAll(pageable), HttpStatus.OK);
     }
     @PostMapping
     public ResponseEntity<Smartphone> createSmartphone(@RequestBody Smartphone smartphone){
